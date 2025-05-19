@@ -1,0 +1,520 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="pt-BR" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uso da Biblioteca em Python &mdash; Documentação RVV-SIMD 0.1.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2346ddef"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=71a39b36"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Buscar" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="benchmarks.html" />
+    <link rel="prev" title="Uso da Biblioteca em C++" href="uso_cpp.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            RVV-SIMD
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Pesquisar documentos" aria-label="Pesquisar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu de navegação">
+              <p class="caption" role="heading"><span class="caption-text">Conteúdo:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introducao.html">Introdução</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arquitetura.html">Arquitetura</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instalacao.html">Instalação</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uso_cpp.html">Uso da Biblioteca em C++</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Uso da Biblioteca em Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#importando-a-biblioteca">Importando a Biblioteca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#operacoes-vetoriais">Operações Vetoriais</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#operacoes-matriciais">Operações Matriciais</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#operacoes-de-machine-learning">Operações de Machine Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exemplo-completo">Exemplo Completo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exemplo-de-processamento-de-imagem">Exemplo de Processamento de Imagem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#benchmark-comparativo">Benchmark Comparativo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#consideracoes-de-desempenho">Considerações de Desempenho</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#integracao-com-outras-bibliotecas">Integração com Outras Bibliotecas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#depuracao-e-solucao-de-problemas">Depuração e Solução de Problemas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Perguntas Frequentes (FAQ)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu de navegação móvel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RVV-SIMD</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Navegação da página">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Uso da Biblioteca em Python</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/uso_python.rst.txt" rel="nofollow"> Ver código-fonte da página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="uso-da-biblioteca-em-python">
+<h1>Uso da Biblioteca em Python<a class="headerlink" href="#uso-da-biblioteca-em-python" title="Link para este cabeçalho"></a></h1>
+<p>Esta seção descreve como usar a biblioteca RVV-SIMD em aplicações Python.</p>
+<section id="importando-a-biblioteca">
+<h2>Importando a Biblioteca<a class="headerlink" href="#importando-a-biblioteca" title="Link para este cabeçalho"></a></h2>
+<p>Para usar a biblioteca RVV-SIMD em seu projeto Python, você precisa importá-la:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">rvv_simd</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rv</span>
+
+<span class="c1"># Verifica se a versão com RVV está ativa (se aplicável)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Versão RVV-SIMD: </span><span class="si">{</span><span class="n">rv</span><span class="o">.</span><span class="n">get_version</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Suporte a RVV: </span><span class="si">{</span><span class="s1">&#39;Sim&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">rv</span><span class="o">.</span><span class="n">is_rvv_supported</span><span class="p">()</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;Não&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">rv</span><span class="o">.</span><span class="n">is_rvv_supported</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Informações RVV: </span><span class="si">{</span><span class="n">rv</span><span class="o">.</span><span class="n">get_rvv_info</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="operacoes-vetoriais">
+<h2>Operações Vetoriais<a class="headerlink" href="#operacoes-vetoriais" title="Link para este cabeçalho"></a></h2>
+<p>A biblioteca fornece várias operações vetoriais otimizadas:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cria vetores NumPy (precisão float32 é comum)</span>
+<span class="n">size</span> <span class="o">=</span> <span class="mi">1024</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="c1"># Adição de vetores (aceita e retorna NumPy arrays)</span>
+<span class="c1"># Usando a API de baixo nível</span>
+<span class="n">c1</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">vector_add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+
+<span class="c1"># Usando a API estilo NumPy (recomendado)</span>
+<span class="n">c2</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+
+<span class="c1"># Produto escalar</span>
+<span class="n">dot1</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">vector_dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="n">dot2</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>  <span class="c1"># API estilo NumPy</span>
+
+<span class="c1"># Escalonamento de vetor</span>
+<span class="n">scaled</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">)</span>
+
+<span class="c1"># Normalização de vetor</span>
+<span class="n">normalized</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+<span class="c1"># Funções de ativação</span>
+<span class="n">sigmoid_result</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">relu_result</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">tanh_result</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="operacoes-matriciais">
+<h2>Operações Matriciais<a class="headerlink" href="#operacoes-matriciais" title="Link para este cabeçalho"></a></h2>
+<p>A biblioteca também fornece operações matriciais otimizadas:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cria matrizes NumPy</span>
+<span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="c1"># Adição de matrizes</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>  <span class="c1"># Funciona tanto para vetores quanto para matrizes</span>
+
+<span class="c1"># Multiplicação de matrizes</span>
+<span class="n">a_rows</span><span class="p">,</span> <span class="n">a_cols</span><span class="p">,</span> <span class="n">b_cols</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">32</span>
+<span class="n">a_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="p">(</span><span class="n">a_rows</span><span class="p">,</span> <span class="n">a_cols</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">b_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="p">(</span><span class="n">a_cols</span><span class="p">,</span> <span class="n">b_cols</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="c1"># Usando a API de baixo nível</span>
+<span class="n">c_mat1</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">matrix_mul</span><span class="p">(</span><span class="n">a_mat</span><span class="p">,</span> <span class="n">b_mat</span><span class="p">)</span>
+
+<span class="c1"># Usando a API estilo NumPy (recomendado)</span>
+<span class="n">c_mat2</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">a_mat</span><span class="p">,</span> <span class="n">b_mat</span><span class="p">)</span>
+
+<span class="c1"># Transposição de matriz</span>
+<span class="n">a_transpose</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="operacoes-de-machine-learning">
+<h2>Operações de Machine Learning<a class="headerlink" href="#operacoes-de-machine-learning" title="Link para este cabeçalho"></a></h2>
+<p>Para aplicações de machine learning, a biblioteca fornece operações como convolução, pooling, etc.:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cria tensor de entrada (NCHW - batch, canais, altura, largura)</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">input_channels</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">input_height</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="n">input_width</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="n">input_tensor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">input_channels</span><span class="p">,</span> <span class="n">input_height</span><span class="p">,</span> <span class="n">input_width</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="c1"># Cria tensor de kernel (NCHW - num_kernels, canais_in, altura, largura)</span>
+<span class="n">kernel_num</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="n">kernel_height</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">kernel_width</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">kernel_tensor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">kernel_num</span><span class="p">,</span> <span class="n">input_channels</span><span class="p">,</span> <span class="n">kernel_height</span><span class="p">,</span> <span class="n">kernel_width</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="c1"># Operação de convolução</span>
+<span class="n">stride</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">padding</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Usando a API estilo NumPy (recomendado)</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">conv2d</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">kernel_tensor</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">stride</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="n">padding</span><span class="p">)</span>
+
+<span class="c1"># Usando a API de baixo nível</span>
+<span class="c1"># output = rv.convolution_2d(input_tensor[0], kernel_tensor, stride[0], stride[1], padding[0], padding[1])</span>
+
+<span class="c1"># Max pooling</span>
+<span class="n">pool_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">stride_pool</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Usando a API estilo NumPy (recomendado)</span>
+<span class="n">pooled</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="n">pool_size</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">stride_pool</span><span class="p">)</span>
+
+<span class="c1"># Usando a API de baixo nível</span>
+<span class="c1"># pooled = rv.max_pooling_2d(output, pool_size[0], pool_size[1], stride_pool[0], stride_pool[1])</span>
+</pre></div>
+</div>
+</section>
+<section id="exemplo-completo">
+<h2>Exemplo Completo<a class="headerlink" href="#exemplo-completo" title="Link para este cabeçalho"></a></h2>
+<p>Aqui está um exemplo completo de como usar a biblioteca para implementar uma camada densa (fully connected) de uma rede neural:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">rvv_simd</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="c1"># Implementação simplificada de uma camada densa (fully connected)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dense_layer</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">):</span>
+    <span class="c1"># Multiplicação de matriz: output = input * weights + bias</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">bias</span><span class="p">)</span>
+
+    <span class="c1"># Aplicar função de ativação</span>
+    <span class="k">if</span> <span class="n">activation</span> <span class="o">==</span> <span class="s1">&#39;relu&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">rv</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">activation</span> <span class="o">==</span> <span class="s1">&#39;sigmoid&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">rv</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">activation</span> <span class="o">==</span> <span class="s1">&#39;tanh&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">rv</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">output</span>
+
+<span class="c1"># Exemplo de uso</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="n">input_features</span> <span class="o">=</span> <span class="mi">128</span>
+<span class="n">output_features</span> <span class="o">=</span> <span class="mi">64</span>
+
+<span class="c1"># Dados de entrada e parâmetros</span>
+<span class="n">input_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">input_features</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="p">(</span><span class="n">input_features</span><span class="p">,</span> <span class="n">output_features</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">bias</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">output_features</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="c1"># Mede o tempo de execução</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="c1"># Executar a camada</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">dense_layer</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">)</span>
+
+<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tempo de execução: </span><span class="si">{</span><span class="p">(</span><span class="n">end_time</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> ms&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saída: shape=</span><span class="si">{</span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">, min=</span><span class="si">{</span><span class="n">output</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">}</span><span class="s2">, max=</span><span class="si">{</span><span class="n">output</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Comparação com NumPy puro</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="c1"># Implementação NumPy</span>
+<span class="n">np_output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span> <span class="o">+</span> <span class="n">bias</span><span class="p">)</span>
+
+<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tempo NumPy: </span><span class="si">{</span><span class="p">(</span><span class="n">end_time</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> ms&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Resultado equivalente: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="n">np_output</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="exemplo-de-processamento-de-imagem">
+<h2>Exemplo de Processamento de Imagem<a class="headerlink" href="#exemplo-de-processamento-de-imagem" title="Link para este cabeçalho"></a></h2>
+<p>Aqui está um exemplo de como usar a biblioteca para aplicar um filtro de convolução a uma imagem:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">rvv_simd</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+
+<span class="c1"># Carregar imagem e converter para array NumPy</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;exemplo.jpg&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">)</span>
+<span class="n">img_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">/</span> <span class="mf">255.0</span>
+
+<span class="c1"># Aplicar filtro de convolução (detecção de bordas)</span>
+<span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">8</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="c1"># Expandir kernel para formato NCHW (1, 1, 3, 3)</span>
+<span class="n">kernel</span> <span class="o">=</span> <span class="n">kernel</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Um kernel para cada canal</span>
+
+<span class="c1"># Preparar imagem para convolução (HWC -&gt; NCHW)</span>
+<span class="n">img_nchw</span> <span class="o">=</span> <span class="n">img_array</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">img_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">img_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Aplicar convolução</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">conv2d</span><span class="p">(</span><span class="n">img_nchw</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># Converter resultado de volta para formato de imagem (NCHW -&gt; HWC)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Limitar valores entre 0 e 1</span>
+
+<span class="c1"># Salvar resultado</span>
+<span class="n">result_img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">fromarray</span><span class="p">((</span><span class="n">result</span> <span class="o">*</span> <span class="mi">255</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">))</span>
+<span class="n">result_img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;resultado.jpg&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="benchmark-comparativo">
+<h2>Benchmark Comparativo<a class="headerlink" href="#benchmark-comparativo" title="Link para este cabeçalho"></a></h2>
+<p>Você pode comparar o desempenho da biblioteca RVV-SIMD com o NumPy:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">rvv_simd</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Função para medir o tempo de execução</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">benchmark</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">n_runs</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">times</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_runs</span><span class="p">):</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">times</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_runs</span>
+
+<span class="c1"># Tamanhos de vetores para teste</span>
+<span class="n">sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">100000</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">]</span>
+
+<span class="c1"># Resultados</span>
+<span class="n">rv_times</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">np_times</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">speedups</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">size</span> <span class="ow">in</span> <span class="n">sizes</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Testando tamanho </span><span class="si">{</span><span class="n">size</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Cria vetores de teste</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+    <span class="c1"># Benchmark RVV-SIMD</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">rv_time</span> <span class="o">=</span> <span class="n">benchmark</span><span class="p">(</span><span class="n">rv</span><span class="o">.</span><span class="n">add</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="n">rv_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rv_time</span><span class="p">)</span>
+
+    <span class="c1"># Benchmark NumPy</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">np_time</span> <span class="o">=</span> <span class="n">benchmark</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="n">np_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np_time</span><span class="p">)</span>
+
+    <span class="c1"># Calcula speedup</span>
+    <span class="n">speedup</span> <span class="o">=</span> <span class="n">np_time</span> <span class="o">/</span> <span class="n">rv_time</span>
+    <span class="n">speedups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">speedup</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  RVV-SIMD: </span><span class="si">{</span><span class="n">rv_time</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> ms&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  NumPy: </span><span class="si">{</span><span class="n">np_time</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> ms&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Speedup: </span><span class="si">{</span><span class="n">speedup</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">x&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plota resultados</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sizes</span><span class="p">,</span> <span class="n">rv_times</span><span class="p">,</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;RVV-SIMD&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sizes</span><span class="p">,</span> <span class="n">np_times</span><span class="p">,</span> <span class="s1">&#39;s-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;NumPy&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Tamanho do Vetor&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Tempo (s)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Tempo de Execução&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sizes</span><span class="p">,</span> <span class="n">speedups</span><span class="p">,</span> <span class="s1">&#39;D-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Tamanho do Vetor&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Speedup (NumPy / RVV-SIMD)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Aceleração vs. NumPy&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;benchmark.png&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="consideracoes-de-desempenho">
+<h2>Considerações de Desempenho<a class="headerlink" href="#consideracoes-de-desempenho" title="Link para este cabeçalho"></a></h2>
+<p>Para obter o melhor desempenho da biblioteca RVV-SIMD em Python, considere as seguintes dicas:</p>
+<ol class="arabic simple">
+<li><p><strong>Tipo de dados</strong>: Use sempre <cite>np.float32</cite> para seus arrays NumPy, pois a biblioteca é otimizada para precisão simples.</p></li>
+<li><p><strong>Contiguidade de memória</strong>: Use arrays contíguos em memória (C-contiguous) para melhor desempenho.</p></li>
+<li><p><strong>Operações em lote</strong>: Prefira realizar operações em lote em vez de muitas operações pequenas.</p></li>
+<li><p><strong>Reutilização de arrays</strong>: Reutilize arrays de saída quando possível para evitar alocações de memória desnecessárias.</p></li>
+<li><p><strong>Evite cópias</strong>: A biblioteca tenta minimizar cópias de dados, mas esteja ciente de que algumas operações podem exigir cópias temporárias.</p></li>
+</ol>
+</section>
+<section id="integracao-com-outras-bibliotecas">
+<h2>Integração com Outras Bibliotecas<a class="headerlink" href="#integracao-com-outras-bibliotecas" title="Link para este cabeçalho"></a></h2>
+<p>A biblioteca RVV-SIMD pode ser integrada com outras bibliotecas Python populares:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Integração com PyTorch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">rvv_simd</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rv</span>
+
+<span class="c1"># Converter tensor PyTorch para NumPy, processar com RVV-SIMD e converter de volta</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">process_tensor</span><span class="p">(</span><span class="n">tensor</span><span class="p">):</span>
+    <span class="c1"># Converter para NumPy</span>
+    <span class="n">np_array</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+    <span class="c1"># Processar com RVV-SIMD</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">np_array</span><span class="p">)</span>
+
+    <span class="c1"># Converter de volta para PyTorch</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="c1"># Integração com TensorFlow</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tf</span>
+
+<span class="c1"># Converter tensor TensorFlow para NumPy, processar com RVV-SIMD e converter de volta</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">process_tf_tensor</span><span class="p">(</span><span class="n">tensor</span><span class="p">):</span>
+    <span class="c1"># Converter para NumPy</span>
+    <span class="n">np_array</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+    <span class="c1"># Processar com RVV-SIMD</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">np_array</span><span class="p">)</span>
+
+    <span class="c1"># Converter de volta para TensorFlow</span>
+    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">convert_to_tensor</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="depuracao-e-solucao-de-problemas">
+<h2>Depuração e Solução de Problemas<a class="headerlink" href="#depuracao-e-solucao-de-problemas" title="Link para este cabeçalho"></a></h2>
+<p>Se você encontrar problemas ao usar a biblioteca RVV-SIMD em Python, aqui estão algumas dicas de depuração:</p>
+<ol class="arabic">
+<li><p><strong>Verificar suporte a RVV</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">rvv_simd</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rv</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RVV suportado: </span><span class="si">{</span><span class="s1">&#39;Sim&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">rv</span><span class="o">.</span><span class="n">is_rvv_supported</span><span class="p">()</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;Não&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Versão: </span><span class="si">{</span><span class="n">rv</span><span class="o">.</span><span class="n">get_version</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Info: </span><span class="si">{</span><span class="n">rv</span><span class="o">.</span><span class="n">get_rvv_info</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Verificar tipos de dados</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Certifique-se de que seus arrays são float32</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>  <span class="c1"># Correto</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>  <span class="c1"># Incorreto (será float64 por padrão)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tipo de a: </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tipo de b: </span><span class="si">{</span><span class="n">b</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Verificar contiguidade de memória</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;C-contiguous: </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">c_contiguous</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Se não for contíguo, torne-o contíguo</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">a</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">c_contiguous</span><span class="p">:</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Comparar resultados com NumPy</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">rvv_simd</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rv</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="c1"># Resultado RVV-SIMD</span>
+<span class="n">c_rv</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+
+<span class="c1"># Resultado NumPy</span>
+<span class="n">c_np</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+<span class="c1"># Comparar</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Resultados iguais: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">c_rv</span><span class="p">,</span><span class="w"> </span><span class="n">c_np</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Se não forem iguais, verificar diferenças</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">c_rv</span><span class="p">,</span> <span class="n">c_np</span><span class="p">):</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">c_rv</span> <span class="o">-</span> <span class="n">c_np</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Diferença máxima: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Índice da diferença máxima: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Valor RVV-SIMD: </span><span class="si">{</span><span class="n">c_rv</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">diff</span><span class="p">)]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Valor NumPy: </span><span class="si">{</span><span class="n">c_np</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">diff</span><span class="p">)]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Rodapé">
+        <a href="uso_cpp.html" class="btn btn-neutral float-left" title="Uso da Biblioteca em C++" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="benchmarks.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Próximo <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Direitos autorais 2025, RISC-V Vector Library Team.</p>
+  </div>
+
+  Compilado com <a href="https://www.sphinx-doc.org/">Sphinx</a> usando um
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornecido por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

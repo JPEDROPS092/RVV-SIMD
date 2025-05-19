@@ -1,0 +1,368 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="pt-BR" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uso da Biblioteca em C++ &mdash; Documentação RVV-SIMD 0.1.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2346ddef"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=71a39b36"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Buscar" href="search.html" />
+    <link rel="next" title="Uso da Biblioteca em Python" href="uso_python.html" />
+    <link rel="prev" title="Instalação" href="instalacao.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            RVV-SIMD
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Pesquisar documentos" aria-label="Pesquisar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu de navegação">
+              <p class="caption" role="heading"><span class="caption-text">Conteúdo:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introducao.html">Introdução</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arquitetura.html">Arquitetura</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instalacao.html">Instalação</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Uso da Biblioteca em C++</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#incluindo-a-biblioteca">Incluindo a Biblioteca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inicializando-e-verificando-suporte">Inicializando e Verificando Suporte</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#operacoes-vetoriais">Operações Vetoriais</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#operacoes-matriciais">Operações Matriciais</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#operacoes-de-machine-learning">Operações de Machine Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exemplo-completo">Exemplo Completo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#compilando-e-executando">Compilando e Executando</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#consideracoes-de-desempenho">Considerações de Desempenho</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="uso_python.html">Uso da Biblioteca em Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Perguntas Frequentes (FAQ)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu de navegação móvel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RVV-SIMD</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Navegação da página">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Uso da Biblioteca em C++</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/uso_cpp.rst.txt" rel="nofollow"> Ver código-fonte da página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="uso-da-biblioteca-em-c">
+<h1>Uso da Biblioteca em C++<a class="headerlink" href="#uso-da-biblioteca-em-c" title="Link para este cabeçalho"></a></h1>
+<p>Esta seção descreve como usar a biblioteca RVV-SIMD em aplicações C++.</p>
+<section id="incluindo-a-biblioteca">
+<h2>Incluindo a Biblioteca<a class="headerlink" href="#incluindo-a-biblioteca" title="Link para este cabeçalho"></a></h2>
+<p>Para usar a biblioteca RVV-SIMD em seu projeto C++, você precisa incluir os cabeçalhos apropriados:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;rvv_simd.h&quot;</span><span class="c1"> // Cabeçalho principal</span>
+
+<span class="c1">// Ou incluir cabeçalhos específicos</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;rvv_simd/core.h&quot;</span><span class="c1">      // Funções core</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;rvv_simd/vector_ops.h&quot;</span><span class="c1"> // Operações vetoriais</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;rvv_simd/matrix_ops.h&quot;</span><span class="c1"> // Operações matriciais</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;rvv_simd/ml_ops.h&quot;</span><span class="c1">     // Operações de ML</span>
+</pre></div>
+</div>
+</section>
+<section id="inicializando-e-verificando-suporte">
+<h2>Inicializando e Verificando Suporte<a class="headerlink" href="#inicializando-e-verificando-suporte" title="Link para este cabeçalho"></a></h2>
+<p>Antes de usar a biblioteca, é recomendável inicializá-la e verificar se a extensão vetorial RISC-V (RVV) é suportada:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;rvv_simd/core.h&quot;</span><span class="c1"> // Para funções de inicialização/info</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Inicializa a biblioteca (pode realizar verificações de hardware)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">rvv_simd</span><span class="o">::</span><span class="n">initialize</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Falha ao inicializar a biblioteca RVV-SIMD&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Verifica se RVV é suportado e ativo</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rvv_simd</span><span class="o">::</span><span class="n">is_rvv_supported</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;RVV é suportado e está sendo utilizado.&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Informações RVV: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">rvv_simd</span><span class="o">::</span><span class="n">get_rvv_info</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;RVV não é suportado ou desabilitado. Usando implementações de fallback.&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Versão RVV-SIMD: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">rvv_simd</span><span class="o">::</span><span class="n">get_version</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// ... seu código aqui ...</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="operacoes-vetoriais">
+<h2>Operações Vetoriais<a class="headerlink" href="#operacoes-vetoriais" title="Link para este cabeçalho"></a></h2>
+<p>A biblioteca fornece várias operações vetoriais otimizadas:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;rvv_simd/vector_ops.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;numeric&gt;</span>
+
+<span class="c1">// Cria vetores de entrada (exemplo com std::vector)</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1024</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">result</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+
+<span class="c1">// Inicializa vetores com dados (exemplo)</span>
+<span class="n">std</span><span class="o">::</span><span class="n">iota</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="mf">1.0f</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">iota</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="mf">0.5f</span><span class="p">);</span>
+
+<span class="c1">// Adição de vetores</span>
+<span class="n">rvv_simd</span><span class="o">::</span><span class="n">vector_add</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">data</span><span class="p">());</span>
+
+<span class="c1">// Produto escalar</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">dot_product</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rvv_simd</span><span class="o">::</span><span class="n">vector_dot</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
+
+<span class="c1">// Escalonamento de vetor</span>
+<span class="n">rvv_simd</span><span class="o">::</span><span class="n">vector_scale</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="mf">2.5f</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">data</span><span class="p">());</span>
+
+<span class="c1">// Normalização de vetor</span>
+<span class="n">rvv_simd</span><span class="o">::</span><span class="n">vector_normalize</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">data</span><span class="p">());</span>
+
+<span class="c1">// Funções de ativação (exemplo com ReLU)</span>
+<span class="n">rvv_simd</span><span class="o">::</span><span class="n">vector_relu</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">data</span><span class="p">());</span>
+</pre></div>
+</div>
+</section>
+<section id="operacoes-matriciais">
+<h2>Operações Matriciais<a class="headerlink" href="#operacoes-matriciais" title="Link para este cabeçalho"></a></h2>
+<p>A biblioteca também fornece operações matriciais otimizadas:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;rvv_simd/matrix_ops.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+
+<span class="c1">// Cria matrizes de entrada (layout row-major)</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">a_rows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"> </span><span class="n">a_cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">64</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">b_rows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">64</span><span class="p">,</span><span class="w"> </span><span class="n">b_cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span><span class="w"> </span><span class="c1">// b_rows deve ser igual a a_cols</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a_mat</span><span class="p">(</span><span class="n">a_rows</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">a_cols</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b_mat</span><span class="p">(</span><span class="n">b_rows</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b_cols</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">c_mat</span><span class="p">(</span><span class="n">a_rows</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b_cols</span><span class="p">);</span>
+
+<span class="c1">// Inicializa matrizes com dados...</span>
+
+<span class="c1">// Multiplicação de matrizes (C = A * B)</span>
+<span class="n">rvv_simd</span><span class="o">::</span><span class="n">matrix_mul</span><span class="p">(</span><span class="n">a_mat</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">b_mat</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">a_rows</span><span class="p">,</span><span class="w"> </span><span class="n">a_cols</span><span class="p">,</span><span class="w"> </span><span class="n">b_cols</span><span class="p">,</span><span class="w"> </span><span class="n">c_mat</span><span class="p">.</span><span class="n">data</span><span class="p">());</span>
+
+<span class="c1">// Transposição de matriz</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a_transpose</span><span class="p">(</span><span class="n">a_cols</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">a_rows</span><span class="p">);</span>
+<span class="n">rvv_simd</span><span class="o">::</span><span class="n">matrix_transpose</span><span class="p">(</span><span class="n">a_mat</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">a_rows</span><span class="p">,</span><span class="w"> </span><span class="n">a_cols</span><span class="p">,</span><span class="w"> </span><span class="n">a_transpose</span><span class="p">.</span><span class="n">data</span><span class="p">());</span>
+</pre></div>
+</div>
+</section>
+<section id="operacoes-de-machine-learning">
+<h2>Operações de Machine Learning<a class="headerlink" href="#operacoes-de-machine-learning" title="Link para este cabeçalho"></a></h2>
+<p>Para aplicações de machine learning, a biblioteca fornece operações como convolução, pooling, etc.:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;rvv_simd/ml_ops.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+
+<span class="c1">// Exemplo: Operação de convolução 2D</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">input_c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">input_h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"> </span><span class="n">input_w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">kernel_n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w"> </span><span class="n">kernel_h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">kernel_w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">stride_h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">stride_w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">padding_h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">padding_w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input</span><span class="p">(</span><span class="n">input_c</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">input_h</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">input_w</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">kernel</span><span class="p">(</span><span class="n">kernel_n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">input_c</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernel_h</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernel_w</span><span class="p">);</span>
+<span class="c1">// Inicializa input e kernel...</span>
+
+<span class="c1">// Calcula dimensões de saída</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">output_h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">input_h</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">padding_h</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">kernel_h</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">stride_h</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">output_w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">input_w</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">padding_w</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">kernel_w</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">stride_w</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">output</span><span class="p">(</span><span class="n">kernel_n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">output_h</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">output_w</span><span class="p">);</span>
+
+<span class="n">rvv_simd</span><span class="o">::</span><span class="n">convolution_2d</span><span class="p">(</span>
+<span class="w">    </span><span class="n">input</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">kernel</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">input_h</span><span class="p">,</span><span class="w"> </span><span class="n">input_w</span><span class="p">,</span><span class="w"> </span><span class="n">input_c</span><span class="p">,</span>
+<span class="w">    </span><span class="n">kernel_h</span><span class="p">,</span><span class="w"> </span><span class="n">kernel_w</span><span class="p">,</span><span class="w"> </span><span class="n">input_c</span><span class="p">,</span><span class="w"> </span><span class="n">kernel_n</span><span class="p">,</span><span class="w"> </span><span class="c1">// Nota: Assumindo layout de kernel NCHW</span>
+<span class="w">    </span><span class="n">stride_h</span><span class="p">,</span><span class="w"> </span><span class="n">stride_w</span><span class="p">,</span>
+<span class="w">    </span><span class="n">padding_h</span><span class="p">,</span><span class="w"> </span><span class="n">padding_w</span><span class="p">,</span>
+<span class="w">    </span><span class="n">output</span><span class="p">.</span><span class="n">data</span><span class="p">()</span>
+<span class="p">);</span>
+
+<span class="c1">// Exemplo: Max pooling 2D</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">pool_h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">pool_w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">pool_stride_h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">pool_stride_w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">pooled_h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">output_h</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">pool_h</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">pool_stride_h</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">pooled_w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">output_w</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">pool_w</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">pool_stride_w</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pooled</span><span class="p">(</span><span class="n">kernel_n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pooled_h</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pooled_w</span><span class="p">);</span>
+
+<span class="n">rvv_simd</span><span class="o">::</span><span class="n">max_pooling_2d</span><span class="p">(</span>
+<span class="w">    </span><span class="n">output</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">output_h</span><span class="p">,</span><span class="w"> </span><span class="n">output_w</span><span class="p">,</span><span class="w"> </span><span class="n">kernel_n</span><span class="p">,</span>
+<span class="w">    </span><span class="n">pool_h</span><span class="p">,</span><span class="w"> </span><span class="n">pool_w</span><span class="p">,</span>
+<span class="w">    </span><span class="n">pool_stride_h</span><span class="p">,</span><span class="w"> </span><span class="n">pool_stride_w</span><span class="p">,</span>
+<span class="w">    </span><span class="n">pooled</span><span class="p">.</span><span class="n">data</span><span class="p">()</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="exemplo-completo">
+<h2>Exemplo Completo<a class="headerlink" href="#exemplo-completo" title="Link para este cabeçalho"></a></h2>
+<p>Aqui está um exemplo completo de como usar a biblioteca para realizar uma operação de multiplicação de matrizes:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;random&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;chrono&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;rvv_simd.h&quot;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Inicializa a biblioteca</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">rvv_simd</span><span class="o">::</span><span class="n">initialize</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Falha ao inicializar a biblioteca RVV-SIMD&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Verifica se RVV é suportado</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;RVV suportado: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">rvv_simd</span><span class="o">::</span><span class="n">is_rvv_supported</span><span class="p">()</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;Sim&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;Não&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Versão RVV-SIMD: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">rvv_simd</span><span class="o">::</span><span class="n">get_version</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Define dimensões das matrizes</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">a_rows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">128</span><span class="p">,</span><span class="w"> </span><span class="n">a_cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">256</span><span class="p">;</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">b_rows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a_cols</span><span class="p">,</span><span class="w"> </span><span class="n">b_cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">64</span><span class="p">;</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">c_rows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a_rows</span><span class="p">,</span><span class="w"> </span><span class="n">c_cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b_cols</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Aloca memória para as matrizes</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="n">a_rows</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">a_cols</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">(</span><span class="n">b_rows</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b_cols</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">c</span><span class="p">(</span><span class="n">c_rows</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">c_cols</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Inicializa matrizes com valores aleatórios</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">random_device</span><span class="w"> </span><span class="n">rd</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">mt19937</span><span class="w"> </span><span class="n">gen</span><span class="p">(</span><span class="n">rd</span><span class="p">());</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">uniform_real_distribution</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dist</span><span class="p">(</span><span class="mf">-1.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0f</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dist</span><span class="p">(</span><span class="n">gen</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dist</span><span class="p">(</span><span class="n">gen</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Mede o tempo de execução</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// Realiza multiplicação de matrizes</span>
+<span class="w">    </span><span class="n">rvv_simd</span><span class="o">::</span><span class="n">matrix_mul</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">a_rows</span><span class="p">,</span><span class="w"> </span><span class="n">a_cols</span><span class="p">,</span><span class="w"> </span><span class="n">b_cols</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">data</span><span class="p">());</span>
+
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">duration</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">milli</span><span class="o">&gt;</span><span class="w"> </span><span class="n">duration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Multiplicação de matrizes &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a_rows</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;x&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a_cols</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; * &quot;</span>
+<span class="w">              </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">b_rows</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;x&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">b_cols</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; concluída em &quot;</span>
+<span class="w">              </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">duration</span><span class="p">.</span><span class="n">count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; ms&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Exibe alguns elementos do resultado</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Primeiros elementos do resultado:&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">min</span><span class="p">(</span><span class="kt">size_t</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span><span class="w"> </span><span class="n">c_rows</span><span class="p">);</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">min</span><span class="p">(</span><span class="kt">size_t</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span><span class="w"> </span><span class="n">c_cols</span><span class="p">);</span><span class="w"> </span><span class="o">++</span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">c_cols</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="compilando-e-executando">
+<h2>Compilando e Executando<a class="headerlink" href="#compilando-e-executando" title="Link para este cabeçalho"></a></h2>
+<p>Para compilar um programa que usa a biblioteca RVV-SIMD, você precisa incluir os cabeçalhos e linkar com a biblioteca:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compilando com GCC</span>
+g++<span class="w"> </span>-std<span class="o">=</span>c++14<span class="w"> </span>-I/caminho/para/rvv-simd/include<span class="w"> </span>-L/caminho/para/rvv-simd/lib<span class="w"> </span>-o<span class="w"> </span>meu_programa<span class="w"> </span>meu_programa.cpp<span class="w"> </span>-lrvv_simd
+
+<span class="c1"># Compilando com CMake</span>
+<span class="c1"># No CMakeLists.txt:</span>
+<span class="c1"># find_package(RVV_SIMD REQUIRED)</span>
+<span class="c1"># target_link_libraries(meu_programa PRIVATE RVV_SIMD::rvv_simd)</span>
+</pre></div>
+</div>
+</section>
+<section id="consideracoes-de-desempenho">
+<h2>Considerações de Desempenho<a class="headerlink" href="#consideracoes-de-desempenho" title="Link para este cabeçalho"></a></h2>
+<p>Para obter o melhor desempenho da biblioteca RVV-SIMD, considere as seguintes dicas:</p>
+<ol class="arabic simple">
+<li><p><strong>Alinhamento de memória</strong>: Alinhe seus dados em limites de cache para melhor desempenho.</p></li>
+<li><p><strong>Reutilização de buffers</strong>: Reutilize buffers de resultado para evitar alocações de memória desnecessárias.</p></li>
+<li><p><strong>Tamanho dos dados</strong>: Operações em vetores/matrizes maiores geralmente têm melhor desempenho relativo devido à sobrecarga de inicialização.</p></li>
+<li><p><strong>Precisão</strong>: A biblioteca é otimizada para operações em ponto flutuante de precisão simples (float32).</p></li>
+<li><p><strong>Compilação</strong>: Use flags de otimização apropriadas ao compilar seu programa (e.g., <cite>-O3</cite>).</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Rodapé">
+        <a href="instalacao.html" class="btn btn-neutral float-left" title="Instalação" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="uso_python.html" class="btn btn-neutral float-right" title="Uso da Biblioteca em Python" accesskey="n" rel="next">Próximo <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Direitos autorais 2025, RISC-V Vector Library Team.</p>
+  </div>
+
+  Compilado com <a href="https://www.sphinx-doc.org/">Sphinx</a> usando um
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornecido por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

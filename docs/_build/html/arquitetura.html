@@ -1,0 +1,307 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="pt-BR" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arquitetura &mdash; Documentação RVV-SIMD 0.1.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2346ddef"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=71a39b36"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Buscar" href="search.html" />
+    <link rel="next" title="Instalação" href="instalacao.html" />
+    <link rel="prev" title="Introdução" href="introducao.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            RVV-SIMD
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Pesquisar documentos" aria-label="Pesquisar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu de navegação">
+              <p class="caption" role="heading"><span class="caption-text">Conteúdo:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introducao.html">Introdução</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Arquitetura</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#visao-geral">Visão Geral</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#componentes-principais">Componentes Principais</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#biblioteca-core-c">Biblioteca Core (C++)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bindings-python">Bindings Python</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#diagrama-de-arquitetura">Diagrama de Arquitetura</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#detalhes-de-implementacao">Detalhes de Implementação</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#extensao-vetorial-risc-v-rvv">Extensão Vetorial RISC-V (RVV)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#implementacoes-de-fallback">Implementações de Fallback</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#interface-python">Interface Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gerenciamento-de-memoria">Gerenciamento de Memória</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#consideracoes-de-desempenho">Considerações de Desempenho</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#extensibilidade">Extensibilidade</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="instalacao.html">Instalação</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uso_cpp.html">Uso da Biblioteca em C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uso_python.html">Uso da Biblioteca em Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Perguntas Frequentes (FAQ)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu de navegação móvel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RVV-SIMD</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Navegação da página">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Arquitetura</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/arquitetura.rst.txt" rel="nofollow"> Ver código-fonte da página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="arquitetura">
+<h1>Arquitetura<a class="headerlink" href="#arquitetura" title="Link para este cabeçalho"></a></h1>
+<p>A biblioteca RVV-SIMD é estruturada em camadas para fornecer tanto operações de baixo nível otimizadas quanto interfaces de alto nível para aplicações de ML e processamento de dados.</p>
+<section id="visao-geral">
+<h2>Visão Geral<a class="headerlink" href="#visao-geral" title="Link para este cabeçalho"></a></h2>
+<p>A arquitetura da biblioteca foi projetada com os seguintes objetivos:</p>
+<ul class="simple">
+<li><p><strong>Desempenho</strong>: Aproveitar ao máximo as capacidades da extensão vetorial RISC-V.</p></li>
+<li><p><strong>Usabilidade</strong>: Fornecer interfaces intuitivas tanto em C++ quanto em Python.</p></li>
+<li><p><strong>Portabilidade</strong>: Funcionar em diferentes implementações de RISC-V e em outras arquiteturas através de implementações de fallback.</p></li>
+<li><p><strong>Extensibilidade</strong>: Facilitar a adição de novas operações e funcionalidades.</p></li>
+</ul>
+</section>
+<section id="componentes-principais">
+<h2>Componentes Principais<a class="headerlink" href="#componentes-principais" title="Link para este cabeçalho"></a></h2>
+<section id="biblioteca-core-c">
+<h3>Biblioteca Core (C++)<a class="headerlink" href="#biblioteca-core-c" title="Link para este cabeçalho"></a></h3>
+<p>A biblioteca core é implementada em C++ e consiste nos seguintes componentes:</p>
+<ol class="arabic simple">
+<li><p><strong>Operações Vetoriais</strong>:
+* Operações aritméticas básicas (adição, subtração, multiplicação, divisão)
+* Produto escalar (dot product)
+* Escalonamento de vetores
+* Normalização de vetores
+* Funções matemáticas (exp, log, sigmoid, tanh, ReLU)</p></li>
+<li><p><strong>Operações Matriciais</strong>:
+* Operações aritméticas em matrizes (adição, subtração, multiplicação elemento a elemento)
+* Multiplicação de matrizes
+* Transposição de matrizes
+* Escalonamento de matrizes
+* Normas de matrizes</p></li>
+<li><p><strong>Operações de Machine Learning</strong>:
+* Operações de convolução para CNNs
+* Operações de pooling (max, average)
+* Batch normalization
+* Funções de ativação (softmax)
+* Funções de perda (cross-entropy)
+* Cálculo de gradientes</p></li>
+</ol>
+</section>
+<section id="bindings-python">
+<h3>Bindings Python<a class="headerlink" href="#bindings-python" title="Link para este cabeçalho"></a></h3>
+<p>Os bindings Python, implementados com <cite>pybind11</cite>, fornecem uma interface de alto nível para a biblioteca core, tornando-a acessível para usuários Python e integrando-a com o ecossistema de ciência de dados do Python:</p>
+<ul class="simple">
+<li><p>Interface compatível com NumPy (aceita e retorna arrays NumPy)</p></li>
+<li><p>Suporte para arrays multidimensionais</p></li>
+<li><p>Integração facilitada com frameworks de ML do Python (PyTorch, TensorFlow, etc.)</p></li>
+<li><p>API intuitiva com nomes de funções familiares para usuários de NumPy</p></li>
+</ul>
+</section>
+</section>
+<section id="diagrama-de-arquitetura">
+<h2>Diagrama de Arquitetura<a class="headerlink" href="#diagrama-de-arquitetura" title="Link para este cabeçalho"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>+---------------------+
+|    Camada Python    |
+| (Compatível NumPy)  |
++----------+----------+
+           |
+           v
++----------+----------+
+|   Bindings Python   |
+|     (pybind11)      |
++----------+----------+
+           |
+           v
++---------------------+
+| Biblioteca Core C++ |
++---------------------+
+|  Operações Vetoriais|
+|  Operações Matriciais|
+|  Operações de ML    |
++----------+----------+
+           |
+           v
++---------------------+    +------------------------+
+| Instruções Vetoriais|---&gt;| Implementação Fallback |
+|     RISC-V (RVV)    |    |    (Escalar / C++)     |
++---------------------+    +------------------------+
+ (Se suportado)             (Se RVV não suportado)
+</pre></div>
+</div>
+</section>
+<section id="detalhes-de-implementacao">
+<h2>Detalhes de Implementação<a class="headerlink" href="#detalhes-de-implementacao" title="Link para este cabeçalho"></a></h2>
+<section id="extensao-vetorial-risc-v-rvv">
+<h3>Extensão Vetorial RISC-V (RVV)<a class="headerlink" href="#extensao-vetorial-risc-v-rvv" title="Link para este cabeçalho"></a></h3>
+<p>A biblioteca utiliza intrínsecos vetoriais RISC-V (<cite>&lt;riscv_vector.h&gt;</cite>) quando compilada para hardware compatível. As otimizações aproveitam a flexibilidade da RVV, como o ajuste dinâmico do comprimento do vetor (<cite>vl</cite>) e o uso eficiente dos registradores vetoriais. Principais intrínsecos utilizados incluem:</p>
+<ul class="simple">
+<li><p><cite>__riscv_vsetvl_e32m8</cite> (e variantes): Define o comprimento do vetor para processamento.</p></li>
+<li><p><cite>__riscv_vle32_v_f32m8</cite>: Carrega elementos de memória para registradores vetoriais.</p></li>
+<li><p><cite>__riscv_vse32_v_f32m8</cite>: Armazena elementos de registradores vetoriais na memória.</p></li>
+<li><p><cite>__riscv_vfadd_vv_f32m8</cite>, <cite>vfsub</cite>, <cite>vfmul</cite>, <cite>vfdiv</cite>: Operações aritméticas vetoriais.</p></li>
+<li><p><cite>__riscv_vfmacc_vv_f32m8</cite>: Multiplicação-acumulação vetorial (útil em matmul, conv).</p></li>
+<li><p><cite>__riscv_vfredusum_vs_f32m8_f32m1</cite>: Redução de soma vetorial (útil em dot product).</p></li>
+<li><p>Operações de máscara para execução condicional.</p></li>
+</ul>
+</section>
+<section id="implementacoes-de-fallback">
+<h3>Implementações de Fallback<a class="headerlink" href="#implementacoes-de-fallback" title="Link para este cabeçalho"></a></h3>
+<p>Para garantir a portabilidade e usabilidade em plataformas RISC-V sem a extensão vetorial ou em outras arquiteturas (para fins de teste/comparação), a biblioteca fornece implementações escalares puras em C++ para todas as operações. A seleção entre a implementação RVV e a de fallback é feita em tempo de compilação usando diretivas de pré-processador (<cite>#ifdef __riscv_vector</cite>).</p>
+<p>Exemplo de código:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">vector_add</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="cp">#ifdef __riscv_vector</span>
+<span class="w">    </span><span class="c1">// Implementação usando RVV</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">vl</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">vl</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">vl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">__riscv_vsetvl_e32m8</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
+<span class="w">        </span><span class="n">vfloat32m8_t</span><span class="w"> </span><span class="n">va</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">__riscv_vle32_v_f32m8</span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">vl</span><span class="p">);</span>
+<span class="w">        </span><span class="n">vfloat32m8_t</span><span class="w"> </span><span class="n">vb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">__riscv_vle32_v_f32m8</span><span class="p">(</span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">vl</span><span class="p">);</span>
+<span class="w">        </span><span class="n">vfloat32m8_t</span><span class="w"> </span><span class="n">vc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">__riscv_vfadd_vv_f32m8</span><span class="p">(</span><span class="n">va</span><span class="p">,</span><span class="w"> </span><span class="n">vb</span><span class="p">,</span><span class="w"> </span><span class="n">vl</span><span class="p">);</span>
+<span class="w">        </span><span class="n">__riscv_vse32_v_f32m8</span><span class="p">(</span><span class="n">result</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">vc</span><span class="p">,</span><span class="w"> </span><span class="n">vl</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="cp">#else</span>
+<span class="w">    </span><span class="c1">// Implementação de fallback</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="cp">#endif</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="interface-python">
+<h2>Interface Python<a class="headerlink" href="#interface-python" title="Link para este cabeçalho"></a></h2>
+<p>A interface Python é projetada para ser intuitiva e familiar para usuários de NumPy. Ela oferece duas APIs:</p>
+<ol class="arabic simple">
+<li><p><strong>API de Baixo Nível</strong>: Funções com prefixos como <cite>vector_*</cite>, <cite>matrix_*</cite> que correspondem diretamente às funções C++</p></li>
+<li><p><strong>API Estilo NumPy</strong>: Funções com nomes familiares como <cite>add</cite>, <cite>dot</cite>, <cite>matmul</cite> que seguem convenções do NumPy</p></li>
+</ol>
+<p>Exemplo de uso:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">rvv_simd</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rv</span>
+
+<span class="c1"># Cria vetores NumPy</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="c1"># API de baixo nível</span>
+<span class="n">c1</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">vector_add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+
+<span class="c1"># API estilo NumPy</span>
+<span class="n">c2</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+
+<span class="c1"># Ambas as chamadas produzem o mesmo resultado</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="gerenciamento-de-memoria">
+<h2>Gerenciamento de Memória<a class="headerlink" href="#gerenciamento-de-memoria" title="Link para este cabeçalho"></a></h2>
+<p>A biblioteca foi projetada para minimizar cópias de memória desnecessárias:</p>
+<ul class="simple">
+<li><p>Em C++, as funções aceitam ponteiros para dados existentes e escrevem resultados em buffers fornecidos pelo usuário.</p></li>
+<li><p>Em Python, os bindings utilizam a API de buffer do NumPy para acessar diretamente os dados dos arrays NumPy sem cópias adicionais.</p></li>
+</ul>
+</section>
+<section id="consideracoes-de-desempenho">
+<h2>Considerações de Desempenho<a class="headerlink" href="#consideracoes-de-desempenho" title="Link para este cabeçalho"></a></h2>
+<p>Vários fatores foram considerados para otimizar o desempenho:</p>
+<ul class="simple">
+<li><p><strong>Alinhamento de memória</strong>: Operações vetoriais são mais eficientes quando os dados estão alinhados corretamente.</p></li>
+<li><p><strong>Localidade de cache</strong>: Operações são organizadas para maximizar a localidade de cache.</p></li>
+<li><p><strong>Paralelismo de instrução</strong>: Operações são estruturadas para aproveitar o paralelismo de instrução disponível.</p></li>
+<li><p><strong>Redução de ramificações</strong>: Código vetorial minimiza ramificações condicionais para melhor desempenho.</p></li>
+</ul>
+</section>
+<section id="extensibilidade">
+<h2>Extensibilidade<a class="headerlink" href="#extensibilidade" title="Link para este cabeçalho"></a></h2>
+<p>A biblioteca foi projetada para ser facilmente extensível:</p>
+<ul class="simple">
+<li><p>Novas operações podem ser adicionadas implementando tanto a versão RVV quanto a versão de fallback.</p></li>
+<li><p>Os bindings Python podem ser estendidos para expor novas funcionalidades.</p></li>
+<li><p>A arquitetura modular facilita a adição de suporte para novas arquiteturas ou otimizações específicas.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Rodapé">
+        <a href="introducao.html" class="btn btn-neutral float-left" title="Introdução" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="instalacao.html" class="btn btn-neutral float-right" title="Instalação" accesskey="n" rel="next">Próximo <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Direitos autorais 2025, RISC-V Vector Library Team.</p>
+  </div>
+
+  Compilado com <a href="https://www.sphinx-doc.org/">Sphinx</a> usando um
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornecido por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

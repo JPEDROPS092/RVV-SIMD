@@ -1,89 +1,120 @@
 
 # RVV-SIMD: Biblioteca SIMD Otimizada para RISC-V Vector
 
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/<your_username>/rvv-simd/actions) <!-- Substitua pelo link real do CI -->
+[![Documentation Status](https://readthedocs.org/projects/rvv-simd/badge/?version=latest)](https://rvv-simd.readthedocs.io/pt_BR/latest/?badge=latest)
+
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/JPEDROPS092/sop/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python Version](https://img.shields.io/badge/python-3.6+-blue.svg)](https://www.python.org/downloads/)
+[![Python Version](https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8%20%7C%203.9%20%7C%203.10-blue.svg)](https://www.python.org/downloads/)
 [![pybind11](https://img.shields.io/badge/bindings-pybind11-orange.svg)](https://github.com/pybind/pybind11)
+[![NumPy](https://img.shields.io/badge/numpy-compatible-green.svg)](https://numpy.org/)
+[![RISC-V](https://img.shields.io/badge/RISC--V-RVV-red.svg)](https://riscv.org/)
 
 Uma biblioteca SIMD (Single Instruction, Multiple Data) de alto desempenho otimizada para a extensão vetorial de RISC-V (RVV), com bindings Python, projetada para aplicações de machine learning e processamento de dados.
 
-## Sumário
+<p align="center">
+  <img src="https://riscv.org/wp-content/uploads/2020/06/riscv-color.svg" alt="RISC-V Logo" width="200"/>
+</p>
 
-1.  [Introdução](#introdução)
-2.  [Arquitetura](#arquitetura)
-3.  [Instalação](#instalação)
-4.  [Uso da Biblioteca em C++](#uso-da-biblioteca-em-c)
-5.  [Uso da Biblioteca em Python](#uso-da-biblioteca-em-python)
-6.  [Benchmarks Comparativos](#benchmarks-comparativos)
-7.  [Aplicações em Machine Learning](#aplicações-em-machine-learning)
-8.  [Otimizações para RVV](#otimizações-para-rvv)
-9.  [Alternativas e Comparação](#alternativas-e-comparação)
-10. [Estado Atual do Suporte Python (Considerações)](#estado-atual-do-suporte-python-considerações)
-11. [Estrutura do Projeto](#estrutura-do-projeto)
-12. [Contribuições](#contribuições)
-13. [Licença](#licença)
-14. [Agradecimentos](#agradecimentos)
+## 📚 Documentação
 
-## Introdução
+A documentação completa da biblioteca está disponível no [Read the Docs](https://rvv-simd.readthedocs.io/pt_BR/latest/).
+
+Para gerar a documentação localmente:
+
+```bash
+# Instalar dependências
+pip install sphinx sphinx_rtd_theme breathe exhale
+
+# Gerar documentação
+cd docs
+sphinx-build -b html . _build/html
+
+# Visualizar documentação
+python -m http.server 8000 --directory _build/html
+```
+
+## 📋 Sumário
+
+1. [📖 Introdução](#-introdução)
+2. [🏗️ Arquitetura](#️-arquitetura)
+3. [⚙️ Instalação](#️-instalação)
+4. [💻 Uso da Biblioteca em C++](#-uso-da-biblioteca-em-c)
+5. [🐍 Uso da Biblioteca em Python](#-uso-da-biblioteca-em-python)
+6. [📊 Benchmarks Comparativos](#-benchmarks-comparativos)
+7. [🧠 Aplicações em Machine Learning](#-aplicações-em-machine-learning)
+8. [⚡ Otimizações para RVV](#-otimizações-para-rvv)
+9. [🔄 Alternativas e Comparação](#-alternativas-e-comparação)
+10. [📝 Estado Atual do Suporte Python](#-estado-atual-do-suporte-python)
+11. [📂 Estrutura do Projeto](#-estrutura-do-projeto)
+12. [🤝 Contribuições](#-contribuições)
+13. [📄 Licença](#-licença)
+14. [🙏 Agradecimentos](#-agradecimentos)
+15. [❓ Perguntas Frequentes](#-perguntas-frequentes)
+
+## 📖 Introdução
 
 A biblioteca RVV-SIMD é uma implementação de operações SIMD otimizadas para a extensão vetorial de RISC-V (RVV). Esta biblioteca visa preencher uma lacuna importante no ecossistema RISC-V, especialmente em aplicações de machine learning (ML) e outras áreas que se beneficiam de processamento paralelo intensivo.
 
-### Motivação
+### 🎯 Motivação
 
 A escassez de bibliotecas otimizadas para RVV tem sido um obstáculo para a adoção mais ampla do RISC-V em aplicações de ML. Esta biblioteca foi desenvolvida para:
 
-1.  **Explorar o potencial da extensão vetorial de RISC-V**: Utilizando instruções RVV para acelerar operações paralelas.
-2.  **Democratizar o acesso à computação vetorial em RISC-V**: Através de bindings Python que facilitam a integração com frameworks populares.
-3.  **Fornecer benchmarks comparativos**: Comparando o desempenho com arquiteturas x86 (usando AVX) e ARM (usando NEON).
-4.  **Suportar aplicações de ML**: Implementando operações comuns em redes neurais e outros algoritmos de ML.
+1. **Explorar o potencial da extensão vetorial de RISC-V**: Utilizando instruções RVV para acelerar operações paralelas.
+2. **Democratizar o acesso à computação vetorial em RISC-V**: Através de bindings Python que facilitam a integração com frameworks populares.
+3. **Fornecer benchmarks comparativos**: Comparando o desempenho com arquiteturas x86 (usando AVX) e ARM (usando NEON).
+4. **Suportar aplicações de ML**: Implementando operações comuns em redes neurais e outros algoritmos de ML.
 
-### Características Principais
+### ✨ Características Principais
 
-*   **Operações vetoriais otimizadas**: Implementações eficientes de operações básicas em vetores.
-*   **Operações matriciais**: Suporte a operações em matrizes, incluindo multiplicação e transposição.
-*   **Operações de ML**: Implementações de convolução, pooling, batch normalization e outras operações comuns em ML.
-*   **Bindings Python**: Interface Python completa, compatível com NumPy.
-*   **Benchmarks comparativos**: Ferramentas para comparar o desempenho com x86 (AVX) e ARM (NEON).
-*   **Implementações de fallback**: Código escalar para plataformas sem suporte a RVV, garantindo portabilidade.
+* **Operações vetoriais otimizadas**: Implementações eficientes de operações básicas em vetores.
+* **Operações matriciais**: Suporte a operações em matrizes, incluindo multiplicação e transposição.
+* **Operações de ML**: Implementações de convolução, pooling, batch normalization e outras operações comuns em ML.
+* **Bindings Python**: Interface Python completa, compatível com NumPy.
+* **Benchmarks comparativos**: Ferramentas para comparar o desempenho com x86 (AVX) e ARM (NEON).
+* **Implementações de fallback**: Código escalar para plataformas sem suporte a RVV, garantindo portabilidade.
+* **Documentação abrangente**: Exemplos detalhados e documentação para facilitar o uso.
 
-## Arquitetura
+## 🏗️ Arquitetura
 
 A biblioteca RVV-SIMD é estruturada em camadas para fornecer tanto operações de baixo nível otimizadas quanto interfaces de alto nível para aplicações de ML e processamento de dados.
 
-### Componentes Principais
+### 🧩 Componentes Principais
 
-#### Biblioteca Core (C++)
+#### 🔧 Biblioteca Core (C++)
 
 A biblioteca core é implementada em C++ e consiste nos seguintes componentes:
 
-1.  **Operações Vetoriais**:
-    *   Operações aritméticas básicas (adição, subtração, multiplicação, divisão)
-    *   Produto escalar (dot product)
-    *   Escalonamento de vetores
-    *   Normalização de vetores
-    *   Funções matemáticas (exp, log, sigmoid, tanh, ReLU)
-2.  **Operações Matriciais**:
-    *   Operações aritméticas em matrizes (adição, subtração, multiplicação elemento a elemento)
-    *   Multiplicação de matrizes
-    *   Transposição de matrizes
-    *   Escalonamento de matrizes
-    *   Normas de matrizes
-3.  **Operações de Machine Learning**:
-    *   Operações de convolução para CNNs
-    *   Operações de pooling (max, average)
-    *   Batch normalization
-    *   Funções de ativação (softmax)
-    *   Funções de perda (cross-entropy)
-    *   Cálculo de gradientes
+1. **Operações Vetoriais**:
+   * Operações aritméticas básicas (adição, subtração, multiplicação, divisão)
+   * Produto escalar (dot product)
+   * Escalonamento de vetores
+   * Normalização de vetores
+   * Funções matemáticas (exp, log, sigmoid, tanh, ReLU)
 
-#### Bindings Python
+2. **Operações Matriciais**:
+   * Operações aritméticas em matrizes (adição, subtração, multiplicação elemento a elemento)
+   * Multiplicação de matrizes
+   * Transposição de matrizes
+   * Escalonamento de matrizes
+   * Normas de matrizes
+
+3. **Operações de Machine Learning**:
+   * Operações de convolução para CNNs
+   * Operações de pooling (max, average)
+   * Batch normalization
+   * Funções de ativação (softmax)
+   * Funções de perda (cross-entropy)
+   * Cálculo de gradientes
+
+#### 🐍 Bindings Python
 
 Os bindings Python, implementados com `pybind11`, fornecem uma interface de alto nível para a biblioteca core, tornando-a acessível para usuários Python e integrando-a com o ecossistema de ciência de dados do Python:
 
-*   Interface compatível com NumPy (aceita e retorna arrays NumPy)
-*   Suporte para arrays multidimensionais
-*   Integração facilitada com frameworks de ML do Python (PyTorch, TensorFlow, etc.)
+* Interface compatível com NumPy (aceita e retorna arrays NumPy)
+* Suporte para arrays multidimensionais
+* Integração facilitada com frameworks de ML do Python (PyTorch, TensorFlow, etc.)
+* API intuitiva com nomes de funções familiares para usuários de NumPy
 
 ### Diagrama de Arquitetura
 
@@ -863,10 +894,43 @@ Por favor, siga as diretrizes detalhadas em [CONTRIBUTING.md](CONTRIBUTING.md) (
 
 Este projeto é licenciado sob os termos da **Licença MIT**. Veja o arquivo [LICENSE](LICENSE) para detalhes completos.
 
-## Agradecimentos
+## 🙏 Agradecimentos
 
-*   À comunidade RISC-V International pelo desenvolvimento da arquitetura e da extensão vetorial.
-*   Aos desenvolvedores das toolchains GCC e LLVM pelo suporte à compilação para RISC-V e RVV.
-*   Aos criadores de `pybind11` por facilitar a criação de bindings Python.
-*   A todos os contribuidores e usuários desta biblioteca.
+- À comunidade RISC-V por seu trabalho na especificação da extensão vetorial
+- Aos desenvolvedores do pybind11 por facilitar a criação de bindings Python
+- À comunidade NumPy por estabelecer padrões para computação numérica em Python
+- A todos os contribuidores que ajudaram a melhorar esta biblioteca
+
+## ❓ Perguntas Frequentes
+
+### 🔄 Posso usar RVV-SIMD em hardware não-RISC-V?
+
+Sim, a biblioteca inclui implementações de fallback que funcionam em qualquer arquitetura suportada pelo C++. No entanto, você não obterá os benefícios de desempenho da extensão vetorial RISC-V.
+
+### 🔄 Como posso verificar se meu hardware suporta RVV?
+
+Em sistemas RISC-V, você pode verificar se a extensão vetorial está disponível usando:
+
+```bash
+cat /proc/cpuinfo | grep isa
 ```
+
+Se você ver `rv64gcv` ou similar (com o `v` no final), seu processador suporta a extensão vetorial.
+
+### 🔄 A biblioteca funciona com PyTorch ou TensorFlow?
+
+A biblioteca não integra diretamente com PyTorch ou TensorFlow, mas como ela aceita e retorna arrays NumPy, você pode usá-la em conjunto com essas frameworks, convertendo tensores para NumPy arrays e vice-versa.
+
+### 🔄 Qual é a precisão numérica suportada?
+
+Atualmente, a biblioteca suporta principalmente operações em precisão simples (float32). Suporte para precisão dupla (float64) e tipos inteiros está planejado para versões futuras.
+
+### 🔄 Como posso contribuir com a biblioteca?
+
+Veja a seção [Contribuições](#-contribuições) acima para detalhes sobre como contribuir com o projeto.
+
+---
+
+<p align="center">
+  <b>RVV-SIMD: Acelerando o futuro da computação vetorial em RISC-V</b>
+</p>

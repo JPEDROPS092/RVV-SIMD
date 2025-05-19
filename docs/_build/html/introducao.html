@@ -1,0 +1,176 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="pt-BR" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introdução &mdash; Documentação RVV-SIMD 0.1.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2346ddef"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=71a39b36"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Buscar" href="search.html" />
+    <link rel="next" title="Arquitetura" href="arquitetura.html" />
+    <link rel="prev" title="RVV-SIMD: Biblioteca SIMD Otimizada para RISC-V Vector" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            RVV-SIMD
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Pesquisar documentos" aria-label="Pesquisar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu de navegação">
+              <p class="caption" role="heading"><span class="caption-text">Conteúdo:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introdução</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#motivacao">Motivação</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#o-que-e-simd">O que é SIMD?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vantagens-da-rvv">Vantagens da RVV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#publico-alvo">Público-alvo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#caracteristicas-principais">Características Principais</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#historico-do-projeto">Histórico do Projeto</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="arquitetura.html">Arquitetura</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instalacao.html">Instalação</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uso_cpp.html">Uso da Biblioteca em C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uso_python.html">Uso da Biblioteca em Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Perguntas Frequentes (FAQ)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu de navegação móvel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RVV-SIMD</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Navegação da página">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Introdução</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/introducao.rst.txt" rel="nofollow"> Ver código-fonte da página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="introducao">
+<h1>Introdução<a class="headerlink" href="#introducao" title="Link para este cabeçalho"></a></h1>
+<p>A biblioteca RVV-SIMD é uma implementação de operações SIMD otimizadas para a extensão vetorial de RISC-V (RVV). Esta biblioteca visa preencher uma lacuna importante no ecossistema RISC-V, especialmente em aplicações de machine learning (ML) e outras áreas que se beneficiam de processamento paralelo intensivo.</p>
+<section id="motivacao">
+<h2>Motivação<a class="headerlink" href="#motivacao" title="Link para este cabeçalho"></a></h2>
+<p>A escassez de bibliotecas otimizadas para RVV tem sido um obstáculo para a adoção mais ampla do RISC-V em aplicações de ML. Esta biblioteca foi desenvolvida para:</p>
+<ol class="arabic simple">
+<li><p><strong>Explorar o potencial da extensão vetorial de RISC-V</strong>: Utilizando instruções RVV para acelerar operações paralelas.</p></li>
+<li><p><strong>Democratizar o acesso à computação vetorial em RISC-V</strong>: Através de bindings Python que facilitam a integração com frameworks populares.</p></li>
+<li><p><strong>Fornecer benchmarks comparativos</strong>: Comparando o desempenho com arquiteturas x86 (usando AVX) e ARM (usando NEON).</p></li>
+<li><p><strong>Suportar aplicações de ML</strong>: Implementando operações comuns em redes neurais e outros algoritmos de ML.</p></li>
+</ol>
+</section>
+<section id="o-que-e-simd">
+<h2>O que é SIMD?<a class="headerlink" href="#o-que-e-simd" title="Link para este cabeçalho"></a></h2>
+<p>SIMD (Single Instruction, Multiple Data) é um paradigma de computação paralela onde uma única instrução é aplicada a múltiplos elementos de dados simultaneamente. Isso é particularmente útil para operações vetoriais e matriciais comuns em processamento de sinais, computação gráfica e machine learning.</p>
+<p>A extensão vetorial RISC-V (RVV) implementa o paradigma SIMD de uma forma flexível e escalável, permitindo que o mesmo código seja executado eficientemente em diferentes implementações de hardware RISC-V, independentemente do tamanho dos registradores vetoriais disponíveis.</p>
+</section>
+<section id="vantagens-da-rvv">
+<h2>Vantagens da RVV<a class="headerlink" href="#vantagens-da-rvv" title="Link para este cabeçalho"></a></h2>
+<p>A extensão vetorial RISC-V (RVV) oferece várias vantagens em relação a outras implementações SIMD:</p>
+<ul class="simple">
+<li><p><strong>Independência de largura vetorial</strong>: O código RVV é independente da largura dos registradores vetoriais do hardware, permitindo portabilidade entre diferentes implementações.</p></li>
+<li><p><strong>Comprimento vetorial configurável</strong>: O comprimento do vetor pode ser ajustado dinamicamente, permitindo processar vetores de qualquer tamanho eficientemente.</p></li>
+<li><p><strong>Mascaramento flexível</strong>: Suporte a operações condicionais em elementos individuais do vetor.</p></li>
+<li><p><strong>Operações de redução eficientes</strong>: Instruções dedicadas para operações de redução como soma, máximo, mínimo, etc.</p></li>
+<li><p><strong>Suporte a diferentes tipos de dados</strong>: Operações em inteiros e ponto flutuante de diferentes tamanhos.</p></li>
+</ul>
+</section>
+<section id="publico-alvo">
+<h2>Público-alvo<a class="headerlink" href="#publico-alvo" title="Link para este cabeçalho"></a></h2>
+<p>Esta biblioteca é destinada a:</p>
+<ul class="simple">
+<li><p><strong>Desenvolvedores de aplicações de ML</strong>: Que desejam aproveitar o hardware RISC-V para acelerar seus algoritmos.</p></li>
+<li><p><strong>Pesquisadores</strong>: Interessados em explorar o desempenho da extensão vetorial RISC-V.</p></li>
+<li><p><strong>Desenvolvedores de sistemas embarcados</strong>: Que trabalham com plataformas RISC-V e precisam de operações vetoriais eficientes.</p></li>
+<li><p><strong>Entusiastas de RISC-V</strong>: Que desejam experimentar com a extensão vetorial.</p></li>
+</ul>
+</section>
+<section id="caracteristicas-principais">
+<h2>Características Principais<a class="headerlink" href="#caracteristicas-principais" title="Link para este cabeçalho"></a></h2>
+<ul class="simple">
+<li><p><strong>Operações vetoriais otimizadas</strong>: Implementações eficientes de operações básicas em vetores.</p></li>
+<li><p><strong>Operações matriciais</strong>: Suporte a operações em matrizes, incluindo multiplicação e transposição.</p></li>
+<li><p><strong>Operações de ML</strong>: Implementações de convolução, pooling, batch normalization e outras operações comuns em ML.</p></li>
+<li><p><strong>Bindings Python</strong>: Interface Python completa, compatível com NumPy.</p></li>
+<li><p><strong>Benchmarks comparativos</strong>: Ferramentas para comparar o desempenho com x86 (AVX) e ARM (NEON).</p></li>
+<li><p><strong>Implementações de fallback</strong>: Código escalar para plataformas sem suporte a RVV, garantindo portabilidade.</p></li>
+<li><p><strong>Documentação abrangente</strong>: Exemplos detalhados e documentação para facilitar o uso.</p></li>
+</ul>
+</section>
+<section id="historico-do-projeto">
+<h2>Histórico do Projeto<a class="headerlink" href="#historico-do-projeto" title="Link para este cabeçalho"></a></h2>
+<p>O projeto RVV-SIMD foi iniciado em 2023 como uma resposta à necessidade de bibliotecas otimizadas para a extensão vetorial RISC-V. Desde então, tem evoluído para incluir mais funcionalidades e melhorar o desempenho, com contribuições da comunidade RISC-V.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Rodapé">
+        <a href="index.html" class="btn btn-neutral float-left" title="RVV-SIMD: Biblioteca SIMD Otimizada para RISC-V Vector" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="arquitetura.html" class="btn btn-neutral float-right" title="Arquitetura" accesskey="n" rel="next">Próximo <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Direitos autorais 2025, RISC-V Vector Library Team.</p>
+  </div>
+
+  Compilado com <a href="https://www.sphinx-doc.org/">Sphinx</a> usando um
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornecido por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

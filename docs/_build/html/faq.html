@@ -1,0 +1,377 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="pt-BR" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perguntas Frequentes (FAQ) &mdash; Documentação RVV-SIMD 0.1.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2346ddef"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=71a39b36"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Buscar" href="search.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="contribuicoes.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            RVV-SIMD
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Pesquisar documentos" aria-label="Pesquisar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu de navegação">
+              <p class="caption" role="heading"><span class="caption-text">Conteúdo:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introducao.html">Introdução</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arquitetura.html">Arquitetura</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instalacao.html">Instalação</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uso_cpp.html">Uso da Biblioteca em C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uso_python.html">Uso da Biblioteca em Python</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Perguntas Frequentes (FAQ)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#perguntas-gerais">Perguntas Gerais</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#o-que-e-rvv-simd">O que é RVV-SIMD?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#por-que-usar-rvv-simd-em-vez-de-outras-bibliotecas">Por que usar RVV-SIMD em vez de outras bibliotecas?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-biblioteca-funciona-em-hardware-nao-risc-v">A biblioteca funciona em hardware não-RISC-V?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#quais-sao-os-requisitos-minimos-para-usar-a-biblioteca">Quais são os requisitos mínimos para usar a biblioteca?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-biblioteca-e-de-codigo-aberto">A biblioteca é de código aberto?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#perguntas-tecnicas">Perguntas Técnicas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#quais-operacoes-sao-suportadas-pela-biblioteca">Quais operações são suportadas pela biblioteca?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#como-posso-verificar-se-meu-hardware-suporta-rvv">Como posso verificar se meu hardware suporta RVV?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#como-posso-forcar-o-uso-da-implementacao-de-fallback">Como posso forçar o uso da implementação de fallback?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-biblioteca-e-thread-safe">A biblioteca é thread-safe?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#quais-tipos-de-dados-sao-suportados">Quais tipos de dados são suportados?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#como-posso-contribuir-com-a-biblioteca">Como posso contribuir com a biblioteca?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#perguntas-sobre-desempenho">Perguntas sobre Desempenho</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#qual-e-o-ganho-de-desempenho-esperado-com-rvv">Qual é o ganho de desempenho esperado com RVV?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#por-que-algumas-operacoes-sao-mais-rapidas-que-outras">Por que algumas operações são mais rápidas que outras?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#como-posso-otimizar-meu-codigo-para-obter-o-melhor-desempenho">Como posso otimizar meu código para obter o melhor desempenho?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#por-que-a-biblioteca-e-mais-lenta-em-alguns-casos-do-que-numpy-pytorch">Por que a biblioteca é mais lenta em alguns casos do que NumPy/PyTorch?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#perguntas-sobre-integracao">Perguntas sobre Integração</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#como-integrar-a-biblioteca-com-pytorch-tensorflow">Como integrar a biblioteca com PyTorch/TensorFlow?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#posso-usar-a-biblioteca-em-aplicacoes-de-producao">Posso usar a biblioteca em aplicações de produção?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-biblioteca-e-adequada-para-sistemas-embarcados">A biblioteca é adequada para sistemas embarcados?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#existe-suporte-comercial-disponivel">Existe suporte comercial disponível?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#perguntas-sobre-desenvolvimento">Perguntas sobre Desenvolvimento</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#como-posso-adicionar-uma-nova-operacao-a-biblioteca">Como posso adicionar uma nova operação à biblioteca?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#como-posso-reportar-um-bug">Como posso reportar um bug?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#existe-um-roadmap-para-futuras-versoes">Existe um roadmap para futuras versões?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu de navegação móvel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RVV-SIMD</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Navegação da página">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Perguntas Frequentes (FAQ)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/faq.rst.txt" rel="nofollow"> Ver código-fonte da página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="perguntas-frequentes-faq">
+<h1>Perguntas Frequentes (FAQ)<a class="headerlink" href="#perguntas-frequentes-faq" title="Link para este cabeçalho"></a></h1>
+<p>Esta seção responde às perguntas mais frequentes sobre a biblioteca RVV-SIMD.</p>
+<section id="perguntas-gerais">
+<h2>Perguntas Gerais<a class="headerlink" href="#perguntas-gerais" title="Link para este cabeçalho"></a></h2>
+<section id="o-que-e-rvv-simd">
+<h3>O que é RVV-SIMD?<a class="headerlink" href="#o-que-e-rvv-simd" title="Link para este cabeçalho"></a></h3>
+<p>RVV-SIMD é uma biblioteca de computação vetorial otimizada para a extensão vetorial RISC-V (RVV). Ela fornece operações SIMD (Single Instruction, Multiple Data) eficientes para processamento de vetores e matrizes, com foco em aplicações de machine learning e processamento de dados.</p>
+</section>
+<section id="por-que-usar-rvv-simd-em-vez-de-outras-bibliotecas">
+<h3>Por que usar RVV-SIMD em vez de outras bibliotecas?<a class="headerlink" href="#por-que-usar-rvv-simd-em-vez-de-outras-bibliotecas" title="Link para este cabeçalho"></a></h3>
+<p>A biblioteca RVV-SIMD oferece várias vantagens:</p>
+<ol class="arabic simple">
+<li><p><strong>Otimização para RISC-V</strong>: Aproveita ao máximo a extensão vetorial RISC-V, oferecendo desempenho superior em hardware RISC-V.</p></li>
+<li><p><strong>Portabilidade</strong>: Funciona em diferentes implementações de RISC-V e oferece implementações de fallback para outras arquiteturas.</p></li>
+<li><p><strong>Bindings Python</strong>: Integração fácil com o ecossistema Python para ciência de dados e machine learning.</p></li>
+<li><p><strong>Foco em ML</strong>: Operações otimizadas para aplicações de machine learning.</p></li>
+</ol>
+</section>
+<section id="a-biblioteca-funciona-em-hardware-nao-risc-v">
+<h3>A biblioteca funciona em hardware não-RISC-V?<a class="headerlink" href="#a-biblioteca-funciona-em-hardware-nao-risc-v" title="Link para este cabeçalho"></a></h3>
+<p>Sim, a biblioteca inclui implementações de fallback que funcionam em qualquer hardware, incluindo x86 e ARM. No entanto, o desempenho máximo é obtido em hardware RISC-V com suporte à extensão vetorial.</p>
+</section>
+<section id="quais-sao-os-requisitos-minimos-para-usar-a-biblioteca">
+<h3>Quais são os requisitos mínimos para usar a biblioteca?<a class="headerlink" href="#quais-sao-os-requisitos-minimos-para-usar-a-biblioteca" title="Link para este cabeçalho"></a></h3>
+<p>Para C++:
+- Compilador C++14 ou superior
+- CMake 3.10 ou superior</p>
+<p>Para Python:
+- Python 3.6 ou superior
+- NumPy 1.16 ou superior</p>
+<p>Para desempenho máximo:
+- Hardware RISC-V com suporte à extensão vetorial (RVV)
+- Compilador com suporte a RVV (GCC ou LLVM/Clang)</p>
+</section>
+<section id="a-biblioteca-e-de-codigo-aberto">
+<h3>A biblioteca é de código aberto?<a class="headerlink" href="#a-biblioteca-e-de-codigo-aberto" title="Link para este cabeçalho"></a></h3>
+<p>Sim, a biblioteca RVV-SIMD é de código aberto e está disponível sob a licença MIT. Você pode contribuir para o desenvolvimento da biblioteca através do GitHub.</p>
+</section>
+</section>
+<section id="perguntas-tecnicas">
+<h2>Perguntas Técnicas<a class="headerlink" href="#perguntas-tecnicas" title="Link para este cabeçalho"></a></h2>
+<section id="quais-operacoes-sao-suportadas-pela-biblioteca">
+<h3>Quais operações são suportadas pela biblioteca?<a class="headerlink" href="#quais-operacoes-sao-suportadas-pela-biblioteca" title="Link para este cabeçalho"></a></h3>
+<p>A biblioteca suporta uma ampla gama de operações, incluindo:</p>
+<ul class="simple">
+<li><p>Operações vetoriais básicas (adição, subtração, multiplicação, divisão)</p></li>
+<li><p>Produto escalar e outras operações de redução</p></li>
+<li><p>Operações matriciais (multiplicação, transposição)</p></li>
+<li><p>Operações de ML (convolução, pooling, batch normalization)</p></li>
+<li><p>Funções de ativação (ReLU, sigmoid, tanh)</p></li>
+</ul>
+<p>Consulte a documentação da API para uma lista completa de operações suportadas.</p>
+</section>
+<section id="como-posso-verificar-se-meu-hardware-suporta-rvv">
+<h3>Como posso verificar se meu hardware suporta RVV?<a class="headerlink" href="#como-posso-verificar-se-meu-hardware-suporta-rvv" title="Link para este cabeçalho"></a></h3>
+<p>Em C++:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;rvv_simd/core.h&quot;</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rvv_simd</span><span class="o">::</span><span class="n">is_rvv_supported</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;RVV é suportado&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Informações RVV: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">rvv_simd</span><span class="o">::</span><span class="n">get_rvv_info</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;RVV não é suportado&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Em Python:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">rvv_simd</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rv</span>
+
+<span class="k">if</span> <span class="n">rv</span><span class="o">.</span><span class="n">is_rvv_supported</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;RVV é suportado&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Informações RVV: </span><span class="si">{</span><span class="n">rv</span><span class="o">.</span><span class="n">get_rvv_info</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;RVV não é suportado&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="como-posso-forcar-o-uso-da-implementacao-de-fallback">
+<h3>Como posso forçar o uso da implementação de fallback?<a class="headerlink" href="#como-posso-forcar-o-uso-da-implementacao-de-fallback" title="Link para este cabeçalho"></a></h3>
+<p>Durante a compilação, você pode forçar o uso da implementação de fallback usando a opção <cite>RVV_SIMD_FORCE_FALLBACK</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>..<span class="w"> </span>-DRVV_SIMD_FORCE_FALLBACK<span class="o">=</span>ON
+</pre></div>
+</div>
+<p>Isso é útil para testes ou para comparar o desempenho entre a implementação RVV e a implementação de fallback.</p>
+</section>
+<section id="a-biblioteca-e-thread-safe">
+<h3>A biblioteca é thread-safe?<a class="headerlink" href="#a-biblioteca-e-thread-safe" title="Link para este cabeçalho"></a></h3>
+<p>Sim, a biblioteca é thread-safe para a maioria das operações. As funções que operam em buffers separados podem ser chamadas de diferentes threads sem problemas. No entanto, algumas funções de inicialização e configuração podem não ser thread-safe e devem ser chamadas antes de iniciar threads paralelas.</p>
+</section>
+<section id="quais-tipos-de-dados-sao-suportados">
+<h3>Quais tipos de dados são suportados?<a class="headerlink" href="#quais-tipos-de-dados-sao-suportados" title="Link para este cabeçalho"></a></h3>
+<p>Atualmente, a biblioteca suporta principalmente operações em ponto flutuante de precisão simples (float32). Algumas operações também suportam inteiros de 32 bits (int32) e ponto flutuante de precisão dupla (float64), mas o suporte é mais limitado.</p>
+<p>Em Python, é recomendável usar arrays NumPy com dtype=np.float32 para obter o melhor desempenho.</p>
+</section>
+<section id="como-posso-contribuir-com-a-biblioteca">
+<h3>Como posso contribuir com a biblioteca?<a class="headerlink" href="#como-posso-contribuir-com-a-biblioteca" title="Link para este cabeçalho"></a></h3>
+<p>Você pode contribuir de várias maneiras:</p>
+<ol class="arabic simple">
+<li><p>Reportando bugs e problemas no GitHub</p></li>
+<li><p>Sugerindo novas funcionalidades</p></li>
+<li><p>Enviando pull requests com correções ou novas funcionalidades</p></li>
+<li><p>Melhorando a documentação</p></li>
+<li><p>Escrevendo testes e benchmarks</p></li>
+</ol>
+<p>Consulte o arquivo CONTRIBUTING.md no repositório para mais detalhes.</p>
+</section>
+</section>
+<section id="perguntas-sobre-desempenho">
+<h2>Perguntas sobre Desempenho<a class="headerlink" href="#perguntas-sobre-desempenho" title="Link para este cabeçalho"></a></h2>
+<section id="qual-e-o-ganho-de-desempenho-esperado-com-rvv">
+<h3>Qual é o ganho de desempenho esperado com RVV?<a class="headerlink" href="#qual-e-o-ganho-de-desempenho-esperado-com-rvv" title="Link para este cabeçalho"></a></h3>
+<p>O ganho de desempenho depende de vários fatores, incluindo:</p>
+<ul class="simple">
+<li><p>A operação específica sendo executada</p></li>
+<li><p>O tamanho dos dados</p></li>
+<li><p>A implementação específica de hardware RISC-V</p></li>
+<li><p>A largura dos registradores vetoriais disponíveis</p></li>
+</ul>
+<p>Em geral, você pode esperar ganhos de 2x a 10x em comparação com implementações escalares, dependendo da operação e do hardware. Operações como multiplicação de matrizes e convolução tendem a mostrar os maiores ganhos.</p>
+</section>
+<section id="por-que-algumas-operacoes-sao-mais-rapidas-que-outras">
+<h3>Por que algumas operações são mais rápidas que outras?<a class="headerlink" href="#por-que-algumas-operacoes-sao-mais-rapidas-que-outras" title="Link para este cabeçalho"></a></h3>
+<p>Algumas operações se beneficiam mais da vetorização do que outras. Operações com alta intensidade aritmética e padrões de acesso à memória regulares (como multiplicação de matrizes) geralmente mostram os maiores ganhos. Operações com muitos acessos aleatórios à memória ou dependências de dados podem se beneficiar menos.</p>
+</section>
+<section id="como-posso-otimizar-meu-codigo-para-obter-o-melhor-desempenho">
+<h3>Como posso otimizar meu código para obter o melhor desempenho?<a class="headerlink" href="#como-posso-otimizar-meu-codigo-para-obter-o-melhor-desempenho" title="Link para este cabeçalho"></a></h3>
+<p>Para obter o melhor desempenho:</p>
+<ol class="arabic simple">
+<li><p>Use arrays contíguos em memória (C-contiguous)</p></li>
+<li><p>Alinhe seus dados em limites de cache quando possível</p></li>
+<li><p>Use o tipo de dados correto (float32 é geralmente o mais otimizado)</p></li>
+<li><p>Prefira operações em lote em vez de muitas operações pequenas</p></li>
+<li><p>Reutilize buffers de resultado para evitar alocações de memória desnecessárias</p></li>
+<li><p>Considere a localidade de cache ao organizar suas operações</p></li>
+</ol>
+</section>
+<section id="por-que-a-biblioteca-e-mais-lenta-em-alguns-casos-do-que-numpy-pytorch">
+<h3>Por que a biblioteca é mais lenta em alguns casos do que NumPy/PyTorch?<a class="headerlink" href="#por-que-a-biblioteca-e-mais-lenta-em-alguns-casos-do-que-numpy-pytorch" title="Link para este cabeçalho"></a></h3>
+<p>Em hardware não-RISC-V, a biblioteca usa implementações de fallback que podem não ser tão otimizadas quanto as implementações específicas de NumPy/PyTorch para x86 (AVX) ou ARM (NEON). Além disso, para operações muito pequenas, a sobrecarga de chamada de função pode dominar o tempo de execução.</p>
+<p>Em hardware RISC-V com RVV, a biblioteca deve ser mais rápida que NumPy/PyTorch para a maioria das operações, especialmente para operações de maior intensidade computacional.</p>
+</section>
+</section>
+<section id="perguntas-sobre-integracao">
+<h2>Perguntas sobre Integração<a class="headerlink" href="#perguntas-sobre-integracao" title="Link para este cabeçalho"></a></h2>
+<section id="como-integrar-a-biblioteca-com-pytorch-tensorflow">
+<h3>Como integrar a biblioteca com PyTorch/TensorFlow?<a class="headerlink" href="#como-integrar-a-biblioteca-com-pytorch-tensorflow" title="Link para este cabeçalho"></a></h3>
+<p>Você pode integrar a biblioteca com PyTorch ou TensorFlow convertendo tensores para arrays NumPy, processando-os com RVV-SIMD e convertendo-os de volta:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># PyTorch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">rvv_simd</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rv</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">process_tensor</span><span class="p">(</span><span class="n">tensor</span><span class="p">):</span>
+    <span class="c1"># Converter para NumPy</span>
+    <span class="n">np_array</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+    <span class="c1"># Processar com RVV-SIMD</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">np_array</span><span class="p">)</span>
+
+    <span class="c1"># Converter de volta para PyTorch</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="c1"># TensorFlow</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tf</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">process_tf_tensor</span><span class="p">(</span><span class="n">tensor</span><span class="p">):</span>
+    <span class="c1"># Converter para NumPy</span>
+    <span class="n">np_array</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+    <span class="c1"># Processar com RVV-SIMD</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">np_array</span><span class="p">)</span>
+
+    <span class="c1"># Converter de volta para TensorFlow</span>
+    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">convert_to_tensor</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="posso-usar-a-biblioteca-em-aplicacoes-de-producao">
+<h3>Posso usar a biblioteca em aplicações de produção?<a class="headerlink" href="#posso-usar-a-biblioteca-em-aplicacoes-de-producao" title="Link para este cabeçalho"></a></h3>
+<p>Sim, a biblioteca é projetada para ser usada em aplicações de produção. No entanto, como qualquer software, é recomendável testar extensivamente antes de implantar em produção.</p>
+</section>
+<section id="a-biblioteca-e-adequada-para-sistemas-embarcados">
+<h3>A biblioteca é adequada para sistemas embarcados?<a class="headerlink" href="#a-biblioteca-e-adequada-para-sistemas-embarcados" title="Link para este cabeçalho"></a></h3>
+<p>Sim, a biblioteca é adequada para sistemas embarcados baseados em RISC-V. Ela foi projetada para ser leve e eficiente, com poucas dependências externas. A implementação de fallback também permite que a biblioteca seja usada em sistemas embarcados sem suporte a RVV.</p>
+</section>
+<section id="existe-suporte-comercial-disponivel">
+<h3>Existe suporte comercial disponível?<a class="headerlink" href="#existe-suporte-comercial-disponivel" title="Link para este cabeçalho"></a></h3>
+<p>Atualmente, não oferecemos suporte comercial oficial. No entanto, você pode entrar em contato com a equipe de desenvolvimento para discutir possíveis arranjos de suporte personalizado.</p>
+</section>
+</section>
+<section id="perguntas-sobre-desenvolvimento">
+<h2>Perguntas sobre Desenvolvimento<a class="headerlink" href="#perguntas-sobre-desenvolvimento" title="Link para este cabeçalho"></a></h2>
+<section id="como-posso-adicionar-uma-nova-operacao-a-biblioteca">
+<h3>Como posso adicionar uma nova operação à biblioteca?<a class="headerlink" href="#como-posso-adicionar-uma-nova-operacao-a-biblioteca" title="Link para este cabeçalho"></a></h3>
+<p>Para adicionar uma nova operação:</p>
+<ol class="arabic simple">
+<li><p>Implemente a versão RVV e a versão de fallback da operação em C++</p></li>
+<li><p>Adicione testes para a nova operação</p></li>
+<li><p>Adicione bindings Python para a operação</p></li>
+<li><p>Atualize a documentação</p></li>
+<li><p>Envie um pull request</p></li>
+</ol>
+<p>Consulte o arquivo CONTRIBUTING.md para mais detalhes.</p>
+</section>
+<section id="como-posso-reportar-um-bug">
+<h3>Como posso reportar um bug?<a class="headerlink" href="#como-posso-reportar-um-bug" title="Link para este cabeçalho"></a></h3>
+<p>Você pode reportar bugs abrindo uma issue no GitHub: <a class="reference external" href="https://github.com/JPEDROPS092/sop/issues">https://github.com/JPEDROPS092/sop/issues</a></p>
+<p>Inclua as seguintes informações:
+- Descrição detalhada do problema
+- Passos para reproduzir o bug
+- Ambiente (sistema operacional, versão do compilador, hardware)
+- Saída de erro (se aplicável)
+- Código de exemplo mínimo que reproduz o problema</p>
+</section>
+<section id="existe-um-roadmap-para-futuras-versoes">
+<h3>Existe um roadmap para futuras versões?<a class="headerlink" href="#existe-um-roadmap-para-futuras-versoes" title="Link para este cabeçalho"></a></h3>
+<p>Sim, estamos planejando várias melhorias para futuras versões:</p>
+<ol class="arabic simple">
+<li><p>Suporte a mais tipos de dados (int8, int16, float16)</p></li>
+<li><p>Mais operações de ML (transformers, RNNs)</p></li>
+<li><p>Integração mais profunda com frameworks de ML</p></li>
+<li><p>Otimizações específicas para diferentes implementações de RVV</p></li>
+<li><p>Suporte a computação paralela multi-core</p></li>
+</ol>
+<p>Consulte o arquivo ROADMAP.md no repositório para mais detalhes.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Rodapé">
+        <a href="contribuicoes.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Direitos autorais 2025, RISC-V Vector Library Team.</p>
+  </div>
+
+  Compilado com <a href="https://www.sphinx-doc.org/">Sphinx</a> usando um
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornecido por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

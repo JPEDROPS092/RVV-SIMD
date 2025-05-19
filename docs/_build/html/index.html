@@ -1,0 +1,215 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="pt-BR" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RVV-SIMD: Biblioteca SIMD Otimizada para RISC-V Vector &mdash; Documentação RVV-SIMD 0.1.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2346ddef"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=71a39b36"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Buscar" href="search.html" />
+    <link rel="next" title="Introdução" href="introducao.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            RVV-SIMD
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Pesquisar documentos" aria-label="Pesquisar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu de navegação">
+              <p class="caption" role="heading"><span class="caption-text">Conteúdo:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introducao.html">Introdução</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arquitetura.html">Arquitetura</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instalacao.html">Instalação</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uso_cpp.html">Uso da Biblioteca em C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uso_python.html">Uso da Biblioteca em Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Perguntas Frequentes (FAQ)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu de navegação móvel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">RVV-SIMD</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Navegação da página">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">RVV-SIMD: Biblioteca SIMD Otimizada para RISC-V Vector</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> Ver código-fonte da página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="rvv-simd-biblioteca-simd-otimizada-para-risc-v-vector">
+<h1>RVV-SIMD: Biblioteca SIMD Otimizada para RISC-V Vector<a class="headerlink" href="#rvv-simd-biblioteca-simd-otimizada-para-risc-v-vector" title="Link para este cabeçalho"></a></h1>
+<a class="reference external image-reference" href="https://github.com/JPEDROPS092/sop/actions"><img alt="https://img.shields.io/badge/build-passing-brightgreen" src="https://img.shields.io/badge/build-passing-brightgreen" />
+</a>
+<a class="reference external image-reference" href="https://opensource.org/licenses/MIT"><img alt="https://img.shields.io/badge/License-MIT-yellow.svg" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+</a>
+<a class="reference external image-reference" href="https://www.python.org/downloads/"><img alt="https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8%20%7C%203.9%20%7C%203.10-blue.svg" src="https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8%20%7C%203.9%20%7C%203.10-blue.svg" />
+</a>
+<a class="reference external image-reference" href="https://github.com/pybind/pybind11"><img alt="https://img.shields.io/badge/bindings-pybind11-orange.svg" src="https://img.shields.io/badge/bindings-pybind11-orange.svg" />
+</a>
+<a class="reference external image-reference" href="https://numpy.org/"><img alt="https://img.shields.io/badge/numpy-compatible-green.svg" src="https://img.shields.io/badge/numpy-compatible-green.svg" />
+</a>
+<a class="reference external image-reference" href="https://riscv.org/"><img alt="https://img.shields.io/badge/RISC--V-RVV-red.svg" src="https://img.shields.io/badge/RISC--V-RVV-red.svg" />
+</a>
+<p>Uma biblioteca SIMD (Single Instruction, Multiple Data) de alto desempenho otimizada para a extensão vetorial de RISC-V (RVV), com bindings Python, projetada para aplicações de machine learning e processamento de dados.</p>
+<a class="reference internal image-reference" href="https://riscv.org/wp-content/uploads/2020/06/riscv-color.svg"><img alt="RISC-V Logo" class="align-center" src="https://riscv.org/wp-content/uploads/2020/06/riscv-color.svg" style="width: 200px;" />
+</a>
+<section id="caracteristicas-principais">
+<h2>Características Principais<a class="headerlink" href="#caracteristicas-principais" title="Link para este cabeçalho"></a></h2>
+<ul class="simple">
+<li><p><strong>Operações vetoriais otimizadas</strong>: Implementações eficientes de operações básicas em vetores.</p></li>
+<li><p><strong>Operações matriciais</strong>: Suporte a operações em matrizes, incluindo multiplicação e transposição.</p></li>
+<li><p><strong>Operações de ML</strong>: Implementações de convolução, pooling, batch normalization e outras operações comuns em ML.</p></li>
+<li><p><strong>Bindings Python</strong>: Interface Python completa, compatível com NumPy.</p></li>
+<li><p><strong>Benchmarks comparativos</strong>: Ferramentas para comparar o desempenho com x86 (AVX) e ARM (NEON).</p></li>
+<li><p><strong>Implementações de fallback</strong>: Código escalar para plataformas sem suporte a RVV, garantindo portabilidade.</p></li>
+<li><p><strong>Documentação abrangente</strong>: Exemplos detalhados e documentação para facilitar o uso.</p></li>
+</ul>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Conteúdo:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introducao.html">Introdução</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introducao.html#motivacao">Motivação</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introducao.html#o-que-e-simd">O que é SIMD?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introducao.html#vantagens-da-rvv">Vantagens da RVV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introducao.html#publico-alvo">Público-alvo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introducao.html#caracteristicas-principais">Características Principais</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introducao.html#historico-do-projeto">Histórico do Projeto</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="arquitetura.html">Arquitetura</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="arquitetura.html#visao-geral">Visão Geral</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arquitetura.html#componentes-principais">Componentes Principais</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arquitetura.html#diagrama-de-arquitetura">Diagrama de Arquitetura</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arquitetura.html#detalhes-de-implementacao">Detalhes de Implementação</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arquitetura.html#interface-python">Interface Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arquitetura.html#gerenciamento-de-memoria">Gerenciamento de Memória</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arquitetura.html#consideracoes-de-desempenho">Considerações de Desempenho</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arquitetura.html#extensibilidade">Extensibilidade</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="instalacao.html">Instalação</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="instalacao.html#pre-requisitos">Pré-requisitos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instalacao.html#compilando-a-partir-do-codigo-fonte">Compilando a partir do Código Fonte</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instalacao.html#instalando-os-bindings-python">Instalando os Bindings Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instalacao.html#instalacao-via-pip-quando-disponivel">Instalação via pip (quando disponível)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instalacao.html#verificando-a-instalacao">Verificando a Instalação</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instalacao.html#configuracoes-avancadas">Configurações Avançadas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instalacao.html#solucao-de-problemas">Solução de Problemas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="uso_cpp.html">Uso da Biblioteca em C++</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="uso_cpp.html#incluindo-a-biblioteca">Incluindo a Biblioteca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uso_cpp.html#inicializando-e-verificando-suporte">Inicializando e Verificando Suporte</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uso_cpp.html#operacoes-vetoriais">Operações Vetoriais</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uso_cpp.html#operacoes-matriciais">Operações Matriciais</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uso_cpp.html#operacoes-de-machine-learning">Operações de Machine Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uso_cpp.html#exemplo-completo">Exemplo Completo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uso_cpp.html#compilando-e-executando">Compilando e Executando</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uso_cpp.html#consideracoes-de-desempenho">Considerações de Desempenho</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="uso_python.html">Uso da Biblioteca em Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="uso_python.html#importando-a-biblioteca">Importando a Biblioteca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uso_python.html#operacoes-vetoriais">Operações Vetoriais</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uso_python.html#operacoes-matriciais">Operações Matriciais</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uso_python.html#operacoes-de-machine-learning">Operações de Machine Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uso_python.html#exemplo-completo">Exemplo Completo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uso_python.html#exemplo-de-processamento-de-imagem">Exemplo de Processamento de Imagem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uso_python.html#benchmark-comparativo">Benchmark Comparativo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uso_python.html#consideracoes-de-desempenho">Considerações de Desempenho</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uso_python.html#integracao-com-outras-bibliotecas">Integração com Outras Bibliotecas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uso_python.html#depuracao-e-solucao-de-problemas">Depuração e Solução de Problemas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Perguntas Frequentes (FAQ)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#perguntas-gerais">Perguntas Gerais</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#perguntas-tecnicas">Perguntas Técnicas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#perguntas-sobre-desempenho">Perguntas sobre Desempenho</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#perguntas-sobre-integracao">Perguntas sobre Integração</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#perguntas-sobre-desenvolvimento">Perguntas sobre Desenvolvimento</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="indices-e-tabelas">
+<h1>Índices e Tabelas<a class="headerlink" href="#indices-e-tabelas" title="Link para este cabeçalho"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Índice</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Índice do Módulo</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Página de Busca</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Rodapé">
+        <a href="introducao.html" class="btn btn-neutral float-right" title="Introdução" accesskey="n" rel="next">Próximo <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Direitos autorais 2025, RISC-V Vector Library Team.</p>
+  </div>
+
+  Compilado com <a href="https://www.sphinx-doc.org/">Sphinx</a> usando um
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornecido por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
