@@ -180,7 +180,7 @@ Para garantir a portabilidade e usabilidade em plataformas RISC-V sem a extensã
 1.  **Clone o repositório:**
     ```bash
     git clone https://github.com/jpedrops092/RVV-SIMD.git
-    cd sop
+    cd RVV-SIMD
     # Opcional: Inicializar submódulos (se pybind11 for um submódulo)
     # git submodule update --init --recursive
     ```
